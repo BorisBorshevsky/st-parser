@@ -5,6 +5,7 @@
 Exercise name: ex5.c
 ****************/
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,34 +16,55 @@ Exercise name: ex5.c
 #define MAX_COURSES 5
 
 int IndexToUpdate(char first[], char last[]);
+
 void UpdateStudent(int studentIndex, char first[21], char last[21], char myCourses[MAX_COURSES][21],
-	int myGrades[MAX_COURSES]);
+                   int myGrades[MAX_COURSES]);
+
 int ParseCourses(char myText[], char myCourses[MAX_COURSES][21], char myGrades[MAX_COURSES], int i);
+
 int ParseCourse(char courseText[], char courseDest[], int *gradeDest);
+
 int ParseString(char myText[], char name[], int i, char splitter);
+
 int ParseStringWithSpaces(char myText[], char name[], int i, char splitter);
+
 void MaxStudStats();
+
 void AllStats();
+
 void PrintMenu();
+
 void PrintStatsMenu();
+
 void UpsertStudent();
+
 void DeleteStud();
+
 void PrintMaxAverageGrade();
+
 void PrintMaxMaxGrade();
+
 void PrintMaxMinGrade();
+
 void PrintMaxSumGrades();
+
 void PrintMaxNumCourses();
+
 void PrintAllAverageGrade();
+
 void PrintAllSumGrades();
+
 void PrintAllNumCourses();
+
 void PrintAllMingrade();
+
 void PrintAllMaxGrade();
 
 // arrays for the assignment.
-char firstName[MAX_STUDENTS][21] = { '\0' };
-char lastName[MAX_STUDENTS][21] = { '\0' };
-char courses[MAX_STUDENTS][MAX_COURSES][21] = { '\0' };
-int grades[MAX_STUDENTS][MAX_COURSES] = { 0 };
+char firstName[MAX_STUDENTS][21] = {'\0'};
+char lastName[MAX_STUDENTS][21] = {'\0'};
+char courses[MAX_STUDENTS][MAX_COURSES][21] = {'\0'};
+int grades[MAX_STUDENTS][MAX_COURSES] = {0};
 
 int howManyStudents = 0;
 int howManyCourses = 0;
