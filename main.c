@@ -431,8 +431,17 @@ Output: no output.
 Function operation:
 
 */
-void UpdateStudent(int studentIndex, char first[], char last[], char myCourses[][21],
+int UpdateStudent(int studentIndex, char first[], char last[], char myCourses[][21],
                    int myGrades[]) {
+
+    int totalCourses = 0;
+    for (int i = 0; i < MAX_COURSES; i++){
+        if (courses[studentIndex][i][0] != '\0'){
+            totalCourses++;
+        }
+    }
+
+
     strcpy(firstName[studentIndex], first);
     strcpy(lastName[studentIndex], last);
 
@@ -448,6 +457,12 @@ void UpdateStudent(int studentIndex, char first[], char last[], char myCourses[]
 
 
         if (found == 0) {
+            totalCourses++;
+            if (totalCourses > MAX_COURSES){
+                //TODO: ADD ERROR HERE
+                return -1;
+            }
+
             //add te course to global list
             for (int j = 0; j < MAX_COURSES; j++) {
                 if (courses[studentIndex][j][0] == '\0') {
@@ -460,6 +475,7 @@ void UpdateStudent(int studentIndex, char first[], char last[], char myCourses[]
     }
 
     printf("Student %c%s %s%c updated.\n", '"', first, last, '"');
+    return 0;
 }
 
 /*
