@@ -203,13 +203,9 @@ void ParseTextAndUpsert() {
         return;
     }
     // activates the IndexToUpdate function, which returns index or -1.
-    int index = IndexToUpdate(firstN[21], lastN[21]);
-    if (index != -1) {
-        UpdateStudent(index, firstN[21], lastN[21], myCourses[MAX_COURSES][21],
-                      myGrades[MAX_COURSES]);
-    } else {
-        printf("Student %c%s %s%c added.\n", '"', firstN, lastN, '"');
-    }
+    int index = IndexToUpdate(firstN, lastN);
+    UpdateStudent(index, firstN, lastN, myCourses, myGrades);
+    howManyStudents++;
 }
 
 /*
@@ -424,7 +420,7 @@ int IndexToUpdate(char first[], char last[]) {
         }
     }
     // if the student doesnt exist.
-    return -1;
+    return howManyStudents;
 }
 
 /*
@@ -435,37 +431,35 @@ Output: no output.
 Function operation:
 
 */
-void UpdateStudent(int studentIndex, char first[21], char last[21], char myCourses[MAX_COURSES][21],
-                   int myGrades[MAX_COURSES]) {
-    // goes over the student courses.
+void UpdateStudent(int studentIndex, char first[], char last[], char myCourses[][21],
+                   int myGrades[]) {
+    strcpy(firstName[studentIndex], first);
+    strcpy(lastName[studentIndex], last);
+
+    //look for the course in the global courses list
     for (int i = 0; i < MAX_COURSES; i++) {
-        // flag.
         int found = 0;
         for (int j = 0; j < MAX_COURSES; j++) {
-            // check for similiar courses
-            if (strcmp(courses[studentIndex][MAX_COURSES][21], myCourses[j][21]) == 0) {
-                // updates the grade of the similar course.
-                strcpy(grades[studentIndex][i], myGrades[j]);
-                // if the course is already exist, then the flag value will change.
+            if (strcmp(courses[studentIndex][j], myCourses[i]) == 0) {
+                grades[studentIndex][j] = myGrades[i];
                 found = 1;
             }
         }
-        // if the course is not in the courses list of the students.
+
+
         if (found == 0) {
-            int howManyCourses = 0;
-            // checks how many courses the student have
-            while ((courses[studentIndex][howManyCourses] != "") && (howManyCourses <= 5)) {
-                howManyCourses++;
+            //add te course to global list
+            for (int j = 0; j < MAX_COURSES; j++) {
+                if (courses[studentIndex][j][0] == '\0') {
+                    strcpy(courses[studentIndex][j], myCourses[i]);
+                    grades[studentIndex][j] = myGrades[i];
+                }
             }
-            strcpy(courses[studentIndex][howManyCourses][21], myCourses[i]);
-            strcpy(grades[studentIndex][howManyCourses], myGrades[i]);
+
         }
     }
+
     printf("Student %c%s %s%c updated.\n", '"', first, last, '"');
-}
-
-void InsertStud(int numberOfStud, char) {
-
 }
 
 /*
